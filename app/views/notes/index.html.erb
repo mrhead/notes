@@ -1,0 +1,17 @@
+<%= form_tag notes_path, method: 'get' do %>
+	<p>
+		<%= text_field_tag :search, params[:search], placeholder: 'Put your search string here...' %>
+		<%= submit_tag 'Search', name: nil %>
+	</p>
+<% end %>
+
+<% if @notes.any? %>
+	<% @notes.each do |note| %>
+		<%= content_tag_for(:div, note) do %>
+			<h3><%= note.title %></h3>
+			<div class="text">
+				<%= note.text %>
+			</div>
+		<% end %>
+	<% end %>
+<% end %>
