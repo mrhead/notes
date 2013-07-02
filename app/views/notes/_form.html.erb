@@ -1,0 +1,25 @@
+<%= form_for(@note) do |f| %>
+	<% if @note.errors.any? %>
+		<div class="errors">
+			Following errors occured:
+			<ul>
+				<% @note.errors.full_messages.each do |error| %>
+					<li><%= error %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+
+	<%= f.label :title %>
+	<%= f.text_field :title, class: 'input-block-level' %>
+
+	<%= f.label :text %>
+	<%= f.text_area :text, class: 'input-block-level', rows: 20 %>
+
+	<%= f.label :tags_string, 'Tags (comma separated)' %>
+	<%= f.text_field :tags_string, class: 'input-block-level' %>
+
+	<p>
+		<%= f.submit class: 'btn btn-primary' %>
+	</p>
+<% end %>

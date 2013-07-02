@@ -8,8 +8,8 @@ FactoryGirl.define do
   factory :note do
     title "MyString"
     text "MyText"
-    #factory :note_with_tags do
-#    	FactoryGirl.create_list(:tag, 3)
-    #end
+    factory :note_with_tags do
+    	tags { [FactoryGirl.create(:tag) , FactoryGirl.create(:tag), FactoryGirl.create(:tag) ] }
+    end
   end
 end

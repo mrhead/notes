@@ -9,5 +9,8 @@
 Note.destroy_all
 
 10.times do
-	Note.create(title: Faker::Lorem.sentence, text: Faker::Lorem.paragraphs.join(' '))
+	note = Note.create(title: Faker::Lorem.sentence, text: Faker::Lorem.paragraphs.join("\n\n"))
+	rand(5).times do
+		note.tags << Tag.create(tag: Faker::Lorem.words.join(' '))
+	end
 end

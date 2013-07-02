@@ -9,7 +9,6 @@ describe 'Notes pages' do
 		}
 
 		it { should have_selector "input[placeholder='Put your search string here...']" }
-
 		it { should have_link "Add note", href: new_note_path }
 
 		describe 'with search string' do
@@ -34,6 +33,8 @@ describe 'Notes pages' do
 						within("div#note_#{note.id}") do
 							should have_content note.title
 							should have_content note.text
+							should have_link "Edit", edit_note_path(note)
+							should have_link note.title, note_path(note)
 						end
 					end
 				end
@@ -90,7 +91,7 @@ describe 'Notes pages' do
 			before {
 				fill_in 'Title', with: note.title
 				fill_in 'Text', with: note.text
-				fill_in 'Tags', with: 'TagOne, TAG TWO ,tag three 3'	
+				fill_in 'Tags', with: 'TagOne, tagone,TAG TWO ,tag three 3'	
 			}
 			let(:note) { FactoryGirl.build(:note) }
 
@@ -105,11 +106,11 @@ describe 'Notes pages' do
 				it { should have_content 'Note has been added.' }
 			end
 
-			describe 'should redirect to notes path' do
+			describe 'should redirect to note path' do
 				before {
 					click_button 'Create Note'
 				}
-				it { current_path.should == notes_path }
+				it { current_path.should == note_path(Note.last) }
 			end
 
 			it 'should change tag count' do
@@ -127,8 +128,65 @@ describe 'Notes pages' do
 				it { @tags.should == ['tagone', 'tag two', 'tag three 3'] }
 			end
 		end
+	end
 
+	describe 'note update' do
+		before {
+			visit edit_note_path(note)
+		}
+		let(:note) { FactoryGirl.create(:note_with_tags) }
 
+		describe 'with invalid information' do
+			before {
+				fill_in 'Title', with: nil
+				click_button 'Update Note'
+			}
+			it 'should display errors' do
+				should have_selector 'div.errors'
+			end
+		end
 
+		describe 'with valid information' do
+			before {
+				fill_in 'Title', with: 'New Title'
+				fill_in 'Text', with: 'New Text'
+				fill_in 'Tags', with: 'New Tag 1, New Tag 2'
+				click_button 'Update Note'
+				note.reload
+			}
+
+			it 'should show success message' do
+				should have_content 'Note has been updated.'
+			end
+
+			it 'should redirect to note page' do
+				current_path.should == note_path(note)
+			end
+
+			it 'should update note' do
+				note.title.should == 'New Title'
+				note.text.should == 'New Text'
+				tags = []
+				note.tags.each do |tag|
+					tags << tag.tag
+				end
+				tags.should == ['new tag 1', 'new tag 2']
+			end
+		end
+
+		describe 'with same information' do
+			before {
+				click_button 'Update Note'
+				note.reload
+			}
+			let(:old_note) { note.clone }
+			let(:old_tags_string) { note.tags_string }
+
+			it 'should not change note' do
+				note.title.should == old_note.title
+				note.text.should == old_note.text
+				note.tags_string.should == old_tags_string
+			end
+		end
 	end
 end

@@ -10,14 +10,12 @@
 #
 
 class Note < ActiveRecord::Base
-  has_and_belongs_to_many :tags, after_add: :initialize_tags_string, after_remove: :initialize_tags_string
+  has_and_belongs_to_many :tags
 
   validates :title, presence: true
 
-  attr_accessor :tags_string
-
-  after_save :update_tags_from_string
-  after_find :initialize_tags_string
+  attr_reader :tags_string
+  attr_accessor :form_tags_string
 
   def self.search(search_string)
   	if search_string
@@ -27,27 +25,28 @@ class Note < ActiveRecord::Base
   	end
   end
 
-  private
-  	def update_tags_from_string
-  		# as first remove all tags associations (not tags itself)
-  		tags.each do |tag|
-  			tags.delete(tag)
-  		end
+  def update_tags_from_form_tags_string
+    tmp_tags_string = form_tags_string
 
-  		# and assign new ones if there are any
-  		unless tags_string.blank?
-  			tags_string.downcase.split(',').each do |tag|
-  				tag.strip!
-  				tags << Tag.where(tag: tag).first_or_create
-  			end
-  		end
-  	end
-
-    def initialize_tags_string(obj = nil)
-      tags_array = []
-      tags.each do |tag|
-        tags_array << tag.tag
-      end
-      @tags_string = tags_array.join(', ')
+    # as first remove all tags associations (not tags itself)
+    tags.each do |tag|
+      tags.delete(tag)
     end
+
+    # and assign new ones if there are any
+    unless tmp_tags_string.blank?
+      tmp_tags_string.downcase.split(',').map { |s| s.strip }.uniq.each do |tag|
+        tag.strip!
+        tags << Tag.where(tag: tag).first_or_create
+      end
+    end
+  end
+
+  def tags_string(obj = nil)
+    tags_array = []
+    tags.each do |tag|
+      tags_array << tag.tag
+    end
+    @tags_string = tags_array.join(', ')
+  end
 end

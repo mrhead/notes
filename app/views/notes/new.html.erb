@@ -1,27 +1,3 @@
 <h1>New note</h1>
 
-<%= form_for(@note) do |f| %>
-	<% if @note.errors.any? %>
-		<div class="errors">
-			Following errors occured:
-			<ul>
-				<% @note.errors.full_messages.each do |error| %>
-					<li><%= error %></li>
-				<% end %>
-			</ul>
-		</div>
-	<% end %>
-
-	<%= f.label :title %>
-	<%= f.text_field :title %>
-
-	<%= f.label :text %>
-	<%= f.text_area :text %>
-
-	<%= f.label :tags_string, 'Tags (comma separated)' %>
-	<%= f.text_field :tags_string %>
-
-	<p>
-		<%= f.submit class: 'btn btn-primary' %>
-	</p>
-<% end %>
+<%= render('form') %>
