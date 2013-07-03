@@ -25,10 +25,8 @@
             </ul>
 
             <%= form_tag notes_path, method: 'get', class: 'navbar-form pull-right' do %>
-              <p>
-                <%= text_field_tag :search, params[:search], placeholder: 'Put your search string here...', class: 'input-xlarge' %>
-                <%= submit_tag 'Search', class: 'btn btn-success' %>
-              </p>
+              <%= text_field_tag :search, params[:search], placeholder: 'Put your search string here...', class: 'input-xlarge' %>
+              <%= submit_tag 'Search', class: 'btn btn-success' %>
             <% end %>
           </div><!--/.nav-collapse -->
         </div>
