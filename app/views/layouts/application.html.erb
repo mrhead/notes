@@ -8,16 +8,41 @@
 </head>
 <body>
 
-<div class="container">
-	<%= link_to 'Add note', new_note_path %>
 
-	<% [:notice, :alert].each do |key| %>
-		<% if flash[key] %>
-			<div class="alert alert-<%= key %>"><%= flash[key] %></div>
+	<div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <%= link_to 'Notes', notes_path, class: 'brand' %>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li><%= link_to 'Home', notes_path %></li>
+              <li><%= link_to 'Add Note', new_note_path %></li>
+            </ul>
+
+            <%= form_tag notes_path, method: 'get', class: 'navbar-form pull-right' do %>
+              <p>
+                <%= text_field_tag :search, params[:search], placeholder: 'Put your search string here...', class: 'input-xlarge' %>
+                <%= submit_tag 'Search', class: 'btn btn-success' %>
+              </p>
+            <% end %>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+	<div class="container">
+		<% [:notice, :alert].each do |key| %>
+			<% if flash[key] %>
+				<div class="alert alert-<%= key %>"><%= flash[key] %></div>
+			<% end %>
 		<% end %>
-	<% end %>
-	<%= yield %>
-</div>
+		<%= yield %>
+	</div>
 
 </body>
 </html>

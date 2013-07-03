@@ -9,7 +9,8 @@ describe 'Notes pages' do
 		}
 
 		it { should have_selector "input[placeholder='Put your search string here...']" }
-		it { should have_link "Add note", href: new_note_path }
+		it { should have_link "Home", href: notes_path }
+		it { should have_link "Add Note", href: new_note_path }
 
 		describe 'with search string' do
 			let(:search_notes) { [] }
