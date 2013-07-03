@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 ruby '2.0.0'
 
 gem 'rails', '4.0.0.rc1'
-gem 'sqlite3'
 gem 'jquery-rails'
 gem 'bootstrap-sass', '~> 2.3.1.0'
 
@@ -15,6 +14,7 @@ group :assets do
 end
 
 group :development, :test do
+  gem 'sqlite3'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'spork-rails', git: 'http://github.com/railstutorial/spork-rails.git'
@@ -25,11 +25,14 @@ group :development do
   gem 'faker'
 end
 
-
 group :test do
   gem 'capybara'
   gem 'guard-rspec'
   gem 'launchy'
+end
+
+group :production do
+  gem 'pg', '~> 0.15.1'
 end
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
