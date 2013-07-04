@@ -87,6 +87,15 @@ describe 'Notes pages' do
 			should have_link 'Delete', note_path(note)
 		end
 
+		it 'should be able to delete note' do
+			expect { click_link 'Delete' }.to change(Note, :count).by(-1)
+		end
+
+		it 'should show success message after note deletion' do
+			click_link 'Delete'
+			should have_content 'Note has been deleted.'
+		end
+
 		it 'should filter html characters' do
 			should have_selector 'h3', text: '<h1>Test</h1>'
 			should have_content '<html>test</html>'

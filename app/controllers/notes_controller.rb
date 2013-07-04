@@ -38,6 +38,9 @@ class NotesController < ApplicationController
   end
 
   def destroy
+    set_note
+    @note.destroy
+    redirect_to notes_path, notice: 'Note has been deleted.'
   end
 
   private

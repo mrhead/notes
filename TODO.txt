@@ -1,5 +1,8 @@
 - kazde slovo vyhladavat zvlast
 	- aby to naslo hp-ux unlock user aj cez "hp-ux user"
+	- hladat cez or, alebo and ???
+
+- dokoncit delete
 
 - vyhladavanie nech je lowercase
 
