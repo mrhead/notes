@@ -26,6 +26,18 @@ describe Note do
   	should be_valid
   end
 
+  describe 'search method' do
+    let(:note) { FactoryGirl.create(:note, title: 'one two three', text: 'four five six') }
+
+    it 'should search more words with arbitrary order in title' do
+      Note.search('three one').should include(note)
+    end
+
+    it 'should search more words with arbitrary order in text' do
+      Note.search('six four').should include(note)
+    end
+  end
+
   describe "tags string" do
   	describe 'should be filled with current tags' do
   		before {

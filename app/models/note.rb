@@ -19,7 +19,14 @@ class Note < ActiveRecord::Base
 
   def self.search(search_string)
   	if search_string
-  		where 'title LIKE ? OR text LIKE ?', "%#{search_string}%", "%#{search_string}%"
+      where_string = []
+      args = []
+      search_string.split.each do |word|
+        where_string << 'title LIKE ? OR text LIKE ?'
+        args << "%#{word}%"
+        args << "%#{word}%"
+      end
+  		where args.unshift(where_string.join(' OR '))
   	else
   		[]
   	end

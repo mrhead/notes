@@ -1,0 +1,17 @@
+- kazde slovo vyhladavat zvlast
+	- aby to naslo hp-ux unlock user aj cez "hp-ux user"
+
+- vyhladavanie nech je lowercase
+
+- truncate na index, podla poctu riadkov
+
+- pridat kontexty a ich prepinanie
+	- work vs. nonwork
+
+- spravit highlight pre najdene slova
+
+- export to .txt
+	- ako backup
+
+
+

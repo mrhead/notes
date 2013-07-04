@@ -73,6 +73,30 @@ describe 'Notes pages' do
 		end
 	end
 
+	describe 'note show page' do
+		before {
+			visit note_path(note)
+		}
+		let(:note) { FactoryGirl.create(:note, title: '<h1>Test</h1>', text: "<html>test</html>") }
+
+		it 'should have edit link' do
+			should have_link 'Edit', edit_note_path(note)
+		end
+
+		it 'should have delete link' do
+			should have_link 'Delete', note_path(note)
+		end
+
+		it 'should filter html characters' do
+			should have_selector 'h3', text: '<h1>Test</h1>'
+			should have_content '<html>test</html>'
+		end
+
+		it 'should add simple formatting to note' do
+			should have_selector 'p', text: '<html>test</html>'
+		end
+	end
+
 	describe 'note creation' do
 		before {
 			visit new_note_path
