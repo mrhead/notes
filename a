@@ -1,0 +1,6 @@
+head@k0re:~/rails/notes(master)$ git config --global user.name "Patrik Bóna"
+head@k0re:~/rails/notes(master)$ git config --global user.name
+Patrik Bóna
+head@k0re:~/rails/notes(master)$ git config --global user.email
+patrik.bona@mrhead.sk
+

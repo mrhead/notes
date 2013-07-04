@@ -2,7 +2,9 @@ class NotesController < ApplicationController
   def index
     @notes = Note.search(params[:search])
     @notes.each do |note|
-      note.text = note.text.lines.first(15).join + '...'
+      if note.text.lines.count > 15
+        note.text = note.text.lines.first(15).join + '...'
+      end
     end
   end
 

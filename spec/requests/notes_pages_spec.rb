@@ -58,6 +58,7 @@ describe 'Notes pages' do
 					end
 					before {
 						FactoryGirl.create(:note, title: 'Title', text: thirty_lines)
+						FactoryGirl.create(:note, title: 'Title', text: "short text")
 						fill_in :search, with: 'Title'
 						click_button 'Search'
 					}
@@ -66,6 +67,9 @@ describe 'Notes pages' do
 					end
 					it 'should show just first 20 lines of note text' do
 						should have_content "#{fifteen_lines}..."
+					end
+					it 'should not add ... to short text' do
+						should_not have_content "short text..."
 					end
 				end
 			end
