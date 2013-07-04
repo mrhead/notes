@@ -2,8 +2,6 @@
 	- aby to naslo hp-ux unlock user aj cez "hp-ux user"
 	- hladat cez or, alebo and ???
 
-- vyhladavanie nech je lowercase
-
 - truncate na index, podla poctu riadkov
 
 - pridat kontexty a ich prepinanie

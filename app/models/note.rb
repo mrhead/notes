@@ -22,12 +22,12 @@ class Note < ActiveRecord::Base
       where_string = []
       args = []
       search_string.split.each do |word|
-        where_string << 'lower(title) LIKE ? OR lower(text) LIKE ?'
+        where_string << '(lower(title) LIKE ? OR lower(text) LIKE ?)'
         word.downcase!
         args << "%#{word}%"
         args << "%#{word}%"
       end
-  		where args.unshift(where_string.join(' OR '))
+  		where args.unshift(where_string.join(' AND '))
   	else
   		[]
   	end

@@ -26,15 +26,24 @@ describe Note do
   	should be_valid
   end
 
-  describe 'search method' do
+  describe 'search' do
     let(:note) { FactoryGirl.create(:note, title: 'one two three', text: 'four five six') }
 
-    it 'should search more words with arbitrary order in title' do
+    it 'should allow more words with arbitrary order in title' do
       Note.search('three one').should include(note)
     end
 
-    it 'should search more words with arbitrary order in text' do
+    it 'should allow more words with arbitrary order in text' do
       Note.search('six four').should include(note)
+    end
+
+    describe 'should use all provided words' do
+      let(:other_note)  { FactoryGirl.create(:note, title: 'one two', text: 'four five') }
+
+      it { Note.search('one three').should include(note) }
+      it { Note.search('one three').should_not include(other_note) }
+      it { Note.search('four six').should include(note) }
+      it { Note.search('four six').should_not include(other_note) }
     end
 
     it 'should be case insensitive' do
