@@ -36,6 +36,12 @@ describe Note do
     it 'should search more words with arbitrary order in text' do
       Note.search('six four').should include(note)
     end
+
+    it 'should be case insensitive' do
+      # this is default on sqlite so tests are passing
+      Note.search('SIX').should include(note)
+      Note.search('OnE').should include(note)
+    end
   end
 
   describe "tags string" do
