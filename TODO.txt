@@ -1,7 +1,3 @@
-- kazde slovo vyhladavat zvlast
-	- aby to naslo hp-ux unlock user aj cez "hp-ux user"
-	- hladat cez or, alebo and ???
-
 - truncate na index, podla poctu riadkov
 
 - pridat kontexty a ich prepinanie

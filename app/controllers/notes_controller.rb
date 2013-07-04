@@ -1,6 +1,9 @@
 class NotesController < ApplicationController
   def index
     @notes = Note.search(params[:search])
+    @notes.each do |note|
+      note.text = note.text.lines.first(15).join + '...'
+    end
   end
 
   def new

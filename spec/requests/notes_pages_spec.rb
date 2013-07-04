@@ -46,6 +46,28 @@ describe 'Notes pages' do
 						should_not have_content note.text
 					end
 				end
+
+				describe 'with note with lot of line' do
+					thirty_lines = ""
+					30.times do |n|
+						thirty_lines += "#{n}\n"
+					end
+					fifteen_lines = ""
+					15.times do |n|
+						fifteen_lines += "#{n}\n"
+					end
+					before {
+						FactoryGirl.create(:note, title: 'Title', text: thirty_lines)
+						fill_in :search, with: 'Title'
+						click_button 'Search'
+					}
+					it 'should not show whole note text' do
+						should_not have_content thirty_lines
+					end
+					it 'should show just first 20 lines of note text' do
+						should have_content "#{fifteen_lines}..."
+					end
+				end
 			end
 
 			describe 'simple text search' do
