@@ -1,7 +1,7 @@
 <%= content_tag_for(:div, note) do %>
 	<h3><%= link_to note.title, note_path(note) %></h3>
 	<div class="text">
-		<%= simple_format(h(note.text)) %>
+		<%= auto_link(simple_format(h(note.text))) %>
 	</div>
 	<div class="links">
 		<%= link_to "Edit", edit_note_path(note), class: 'btn btn-success' %>

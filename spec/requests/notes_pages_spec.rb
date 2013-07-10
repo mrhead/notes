@@ -105,6 +105,11 @@ describe 'Notes pages' do
 		}
 		let(:note) { FactoryGirl.create(:note, title: '<h1>Test</h1>', text: "<html>test</html>") }
 
+		describe 'should automatically create html links for URLs' do
+			let(:note) { FactoryGirl.create(:note, text: 'Lorem http://www.example.com/ ipsum.') }
+			it { should have_link 'http://www.example.com/', href: 'http://www.example.com/' }
+		end
+
 		it 'should have edit link' do
 			should have_link 'Edit', edit_note_path(note)
 		end

@@ -4,6 +4,7 @@ ruby '2.0.0'
 gem 'rails', '4.0.0'
 gem 'jquery-rails', '~> 2.2.1'
 gem 'bootstrap-sass', '~> 2.3.1.0'
+gem 'rails_autolink'
 
 # Gems used only for assets and not required
 # in production environments by default.
