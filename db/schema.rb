@@ -11,25 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130523145622) do
+ActiveRecord::Schema.define(version: 20130710121417) do
 
   create_table "notes", force: true do |t|
     t.string   "title"
     t.text     "text"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "notes_tags", force: true do |t|
-    t.integer "note_id"
-    t.integer "tag_id"
-  end
-
-  add_index "notes_tags", ["note_id"], name: "index_notes_tags_on_note_id"
-  add_index "notes_tags", ["tag_id"], name: "index_notes_tags_on_tag_id"
-
-  create_table "tags", force: true do |t|
-    t.string   "tag"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

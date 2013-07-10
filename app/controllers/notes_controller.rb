@@ -16,7 +16,6 @@ class NotesController < ApplicationController
     @note = Note.new(note_params)
 
     if @note.save
-      update_tags
       redirect_to note_path(@note), notice: 'Note has been added.'
     else
       render 'new'
@@ -35,7 +34,6 @@ class NotesController < ApplicationController
     set_note
   
     if @note.update(note_params)
-      update_tags
       redirect_to note_path(@note), notice: 'Note has been updated.'
     else
       render 'edit'
@@ -49,11 +47,6 @@ class NotesController < ApplicationController
   end
 
   private
-    def update_tags
-      @note.form_tags_string = params[:note][:tags_string]
-      @note.update_tags_from_form_tags_string
-    end
-
     def set_note
       @note = Note.find(params[:id])
     end

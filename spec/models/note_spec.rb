@@ -17,8 +17,6 @@ describe Note do
 
 	it { should respond_to(:title) }
 	it { should respond_to(:text) }
-	it { should respond_to(:tags) }
-	it { should respond_to(:tags_string) }
 
 	it_should_be_invalid_without(:title)
 
@@ -51,24 +49,5 @@ describe Note do
       Note.search('SIX').should include(note)
       Note.search('OnE').should include(note)
     end
-  end
-
-  describe "tags string" do
-  	describe 'should be filled with current tags' do
-  		before {
-  			@tags = []
-  			3.times {
-  				tag = FactoryGirl.create(:tag)
-  				@tags << tag.tag
-  				note.tags << tag
-  			}
-  		}
-  		it { note.tags_string.should == @tags.join(', ') }
-  	end
-
-
-  	describe 'tags should be associated according to tags string' do
-
-  	end
   end
 end

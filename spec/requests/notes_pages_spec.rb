@@ -22,7 +22,7 @@ describe 'Notes pages' do
           other_notes << FactoryGirl.create(:note)
         end
       }
-      
+
       describe 'simple title search' do
         before {
           fill_in :search, with: 'Title'
@@ -156,7 +156,6 @@ describe 'Notes pages' do
       before {
         fill_in 'Title', with: note.title
         fill_in 'Text', with: note.text
-        fill_in 'Tags', with: 'TagOne, tagone,TAG TWO ,tag three 3' 
       }
       let(:note) { FactoryGirl.build(:note) }
 
@@ -177,21 +176,6 @@ describe 'Notes pages' do
         }
         it { current_path.should == note_path(Note.last) }
       end
-
-      it 'should change tag count' do
-        expect { click_button 'Create Note' }.to change(Tag, :count).by(3)
-      end
-
-      describe 'should assign tags to new note' do
-        before {
-          click_button 'Create Note'
-          @tags = []
-          Note.last.tags.each do |tag|
-            @tags << tag.tag
-          end
-        }
-        it { @tags.should == ['tagone', 'tag two', 'tag three 3'] }
-      end
     end
   end
 
@@ -199,7 +183,7 @@ describe 'Notes pages' do
     before {
       visit edit_note_path(note)
     }
-    let(:note) { FactoryGirl.create(:note_with_tags) }
+    let(:note) { FactoryGirl.create(:note) }
 
     describe 'with invalid information' do
       before {
@@ -215,7 +199,6 @@ describe 'Notes pages' do
       before {
         fill_in 'Title', with: 'New Title'
         fill_in 'Text', with: 'New Text'
-        fill_in 'Tags', with: 'New Tag 1, New Tag 2'
         click_button 'Update Note'
         note.reload
       }
@@ -231,11 +214,6 @@ describe 'Notes pages' do
       it 'should update note' do
         note.title.should == 'New Title'
         note.text.should == 'New Text'
-        tags = []
-        note.tags.each do |tag|
-          tags << tag.tag
-        end
-        tags.should == ['new tag 1', 'new tag 2']
       end
     end
 
@@ -245,12 +223,10 @@ describe 'Notes pages' do
         note.reload
       }
       let(:old_note) { note.clone }
-      let(:old_tags_string) { note.tags_string }
 
       it 'should not change note' do
         note.title.should == old_note.title
         note.text.should == old_note.text
-        note.tags_string.should == old_tags_string
       end
     end
   end
