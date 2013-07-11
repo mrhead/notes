@@ -18,5 +18,10 @@
 
 	<p>
 		<%= f.submit class: 'btn btn-primary' %>
+		<% if @note.new_record? %>
+			<%= link_to 'Cancel', notes_path, class: 'btn', data: { confirm: 'Really? You will lost your changes.' } %>
+		<% else %>
+			<%= link_to 'Cancel', note_path(@note), class: 'btn', data: { confirm: 'Really? You will lost your changes.' } %>
+		<% end %>
 	</p>
 <% end %>

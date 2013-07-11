@@ -141,6 +141,15 @@ describe 'Notes pages' do
       visit new_note_path
     }
 
+    it 'should have cancel link' do
+      should have_link 'Cancel', notes_path
+    end
+    
+    it 'cancel should redirect to notes path' do
+      click_link 'Cancel'
+      current_path.should == notes_path
+    end
+
     describe 'with invalid information' do
       before {
         click_button 'Create Note'
@@ -183,6 +192,15 @@ describe 'Notes pages' do
       visit edit_note_path(note)
     }
     let(:note) { FactoryGirl.create(:note) }
+
+    it 'should have cancel link' do
+      should have_link 'Cancel', note_path(note)
+    end
+
+    it 'cancel should redirect to note path' do
+      click_link 'Cancel'
+      current_path.should == note_path(note)
+    end
 
     describe 'with invalid information' do
       before {
