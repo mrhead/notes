@@ -49,5 +49,12 @@ describe Note do
       Note.search('SIX').should include(note)
       Note.search('OnE').should include(note)
     end
+
+    describe 'should return all notes with empty search string' do
+      let(:other_note) { FactoryGirl.create(:note) }
+      it { Note.search('').should include(note) }
+      it { Note.search('').should include(other_note) }
+      it { Note.search('').count.should == Note.count }
+    end
   end
 end

@@ -13,7 +13,7 @@ class Note < ActiveRecord::Base
   validates :title, presence: true
 
   def self.search(search_string)
-  	if search_string
+  	unless search_string.blank?
       where_string = []
       args = []
       search_string.split.each do |word|
@@ -24,7 +24,7 @@ class Note < ActiveRecord::Base
       end
   		where args.unshift(where_string.join(' AND '))
   	else
-  		[]
+  		Note.all
   	end
   end
 end
