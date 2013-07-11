@@ -132,8 +132,8 @@ describe 'Notes pages' do
       should have_content '<html>test</html>'
     end
 
-    it 'should add simple formatting to note' do
-      should have_selector 'p', text: '<html>test</html>'
+    it 'should show note text as preformated text' do
+    	should have_selector 'pre', text: note.text
     end
   end
 
