@@ -5,7 +5,7 @@ Notes is simple, single user, notes taking app written in Rails 4.
 
 I use it for taking technical notes (snippets of code, unix commands for specific tasks, simple how tos...). There is also quick search so I can easily find whatever I need.
 
-Deplyoing to Heroku
+Deploying to Heroku
 -------------------
 
 You can simply create your own copy on heroku with following steps:
