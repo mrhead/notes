@@ -1,7 +1,11 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 
-$(document).ready(function() {
+// page:load is for turbolinks
+$(document).bind('page:load', allowTabKey);
+$(document).ready(allowTabKey);
+
+function allowTabKey() {
   $("textarea").keydown(function(e) {
     if(e.keyCode === 9) { // tab was pressed
         // get caret position/selection
@@ -23,4 +27,4 @@ $(document).ready(function() {
         e.preventDefault();
     }
   });
-})
+}
