@@ -12,49 +12,59 @@
 require 'spec_helper'
 
 describe Note do
-	let(:note) { FactoryGirl.create(:note) }
-	subject { note }
+  it "responds to title" do
+    expect(Note.new).to respond_to(:title)
+  end
 
-	it { should respond_to(:title) }
-	it { should respond_to(:text) }
+  it "responds to text" do
+    expect(Note.new).to respond_to(:text)
+  end
 
-	it_should_be_invalid_without(:title)
-
-	it "should have valid factory" do
-  	should be_valid
+  it "is invalid without title" do
+    note = FactoryGirl.build(:note, title: nil)
+    expect(note).to be_invalid
+  end
+	
+  it "has valid factory" do
+    note = FactoryGirl.build(:note)
+    expect(note).to be_valid
   end
 
   describe 'search' do
-    let(:note) { FactoryGirl.create(:note, title: 'one two three', text: 'four five six') }
-
-    it 'should allow more words with arbitrary order in title' do
-      Note.search('three one').should include(note)
+    it 'allows to use more words with arbitrary order in title' do
+      note = FactoryGirl.create(:note, title: 'one two three')
+      expect(Note.search('three one')).to include(note)
     end
 
-    it 'should allow more words with arbitrary order in text' do
-      Note.search('six four').should include(note)
+    it 'allows to use more words with arbitrary order in text' do
+      note = FactoryGirl.create(:note, text: 'one two three')
+      expect(Note.search('three one')).to include(note)
     end
 
-    describe 'should use all provided words' do
-      let(:other_note)  { FactoryGirl.create(:note, title: 'one two', text: 'four five') }
+    it 'uses all provided words (AND instead of OR)' do
+      note = FactoryGirl.create(:note, title: 'one two three', text: 'four five six')
+      other_note = FactoryGirl.create(:note, title: 'one two', text: 'four five')
 
-      it { Note.search('one three').should include(note) }
-      it { Note.search('one three').should_not include(other_note) }
-      it { Note.search('four six').should include(note) }
-      it { Note.search('four six').should_not include(other_note) }
+      expect(Note.search('one three')).to include(note)
+      expect(Note.search('one three')).not_to include(other_note)
+      expect(Note.search('four six')).to include(note)
+      expect(Note.search('four six')).not_to include(other_note)
     end
 
-    it 'should be case insensitive' do
+    it 'is case insensitive' do
       # this is default on sqlite so tests are passing
-      Note.search('SIX').should include(note)
-      Note.search('OnE').should include(note)
+      note = FactoryGirl.create(:note, title: 'one', text: 'two')
+      expect(Note.search('OnE')).to include(note)
+      expect(Note.search('tWo')).to include(note)
     end
 
-    describe 'should return all notes with empty search string' do
-      let(:other_note) { FactoryGirl.create(:note) }
-      it { Note.search('').should include(note) }
-      it { Note.search('').should include(other_note) }
-      it { Note.search('').count.should == Note.count }
+    it 'returns all notes when search string is empty' do
+      note = FactoryGirl.create(:note)
+      other_note = FactoryGirl.create(:note)
+      notes_search = Note.search('')
+      expect(notes_search).to include(note)
+      expect(notes_search).to include(other_note)
+      expect(notes_search.count).to eq(2)
     end
   end
 end
