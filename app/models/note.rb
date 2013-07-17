@@ -22,9 +22,19 @@ class Note < ActiveRecord::Base
         args << "%#{word}%"
         args << "%#{word}%"
       end
-  		where args.unshift(where_string.join(' AND '))
+  		found_notes = where args.unshift(where_string.join(' AND '))
+      found_notes.sort! { |a,b| a.score(search_string) <=> b.score(search_string) }.reverse
   	else
   		Note.all
   	end
+  end
+
+  def score(search_string)
+    score = 0
+    search_string.downcase.split.each do |search_word|
+      score += title.downcase.scan(search_word).size * 5
+      score += text.downcase.scan(search_word).size
+    end
+    score
   end
 end
