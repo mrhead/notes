@@ -29,6 +29,7 @@ end
 group :test do
   gem 'capybara', '~> 2.1.0'
   gem 'launchy'
+  gem 'poltergeist'
 end
 
 group :production do
