@@ -78,7 +78,7 @@ describe 'Notes pages' do
       expect(page).to have_content 'Note has been deleted.'
     end
 
-    it 'sanitizes html characters' do
+    it 'escapes html characters' do
       note = FactoryGirl.create(:note, title: '<h1>Test</h1>', text: "<html>test</html>")
       visit note_path(note)
 
