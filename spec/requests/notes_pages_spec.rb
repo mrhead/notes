@@ -37,12 +37,14 @@ describe 'Notes pages' do
     describe 'with search string' do
       it 'lists all found notes' do
         note = FactoryGirl.create(:note, title: 'Hello', text: 'world!')
+        other_note = FactoryGirl.create(:note, title: 'Not relevant', text: 'Not relevant')
         visit notes_path
         fill_in :search, with: 'Hello'
         click_button 'Search'
 
         expect(page).to have_link note.title, href: note_path(note)
         expect(page).to have_content note.text
+        expect(page).not_to have_content other_note.text
       end
     end
   end
