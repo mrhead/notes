@@ -1,6 +1,3 @@
-# I've found this code somewhere on stack overflow and then rewritten it to coffee script
-# unfortunately I do not have question URL anymore
-
 # page:load is for turbolinks
 $(document).bind 'page:load', ->
   init()
@@ -19,6 +16,10 @@ init = ->
       $('.main-content').show()
       $('.ajax-content').html('').hide()
 
+
+  # I've found this code somewhere on stack overflow and then rewritten it to coffee script
+  # unfortunately I do not have question URL anymore
+  
   # allow tab key in textarea
   $("textarea").keydown (e) ->
     # 9 is for tab key
