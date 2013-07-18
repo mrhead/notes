@@ -2,10 +2,24 @@
 # unfortunately I do not have question URL anymore
 
 # page:load is for turbolinks
-$(document).bind 'page:load', -> allowTabKey()
-$(document).ready -> allowTabKey()  
+$(document).bind 'page:load', ->
+  init()
 
-allowTabKey = ->
+jQuery ->
+  init()
+
+init = ->
+  # instant search
+  $('#search').keyup (e) ->
+    if $(this).val().length > 0
+      $('.main-content').hide()
+      $('.ajax-content').show()
+      $(this).parents('form').submit()
+    else
+      $('.main-content').show()
+      $('.ajax-content').html('').hide()
+
+  # allow tab key in textarea
   $("textarea").keydown (e) ->
     # 9 is for tab key
     if e.keyCode == 9

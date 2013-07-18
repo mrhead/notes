@@ -6,6 +6,10 @@ class NotesController < ApplicationController
         note.text = note.text.lines.first(15).join + '...'
       end
     end
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def new

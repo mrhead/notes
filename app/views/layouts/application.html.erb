@@ -23,7 +23,7 @@
               <li><%= link_to 'Add Note', new_note_path %></li>
             </ul>
 
-            <%= form_tag notes_path, method: 'get', class: 'navbar-form pull-right' do %>
+            <%= form_tag notes_path, method: 'get', class: 'navbar-form pull-right', remote: true do %>
               <%= text_field_tag :search, params[:search], placeholder: 'Put your search string here...', class: 'input-xlarge' %>
               <%= submit_tag 'Search', class: 'btn btn-success' %>
             <% end %>
@@ -32,7 +32,7 @@
       </div>
     </div>
 
-	<div class="container">
+	<div class="container main-content">
 		<% [:notice, :alert].each do |key| %>
 			<% if flash[key] %>
 				<div class="alert alert-<%= key %>"><%= flash[key] %></div>
@@ -40,6 +40,7 @@
 		<% end %>
 		<%= yield %>
 	</div>
+  <div class="container ajax-content"></div>
 
 </body>
 </html>

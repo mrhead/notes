@@ -8,9 +8,8 @@
 
 Note.destroy_all
 
+words = %w{ruby rails javascript html css jquery api callback ajax database hack issue}
+
 10.times do
-	note = Note.create(title: Faker::Lorem.sentence, text: Faker::Lorem.paragraphs.join("\n\n"))
-	rand(5).times do
-		note.tags << Tag.create(tag: Faker::Lorem.words.join(' '))
-	end
+  note = Note.create(title: words.sample(rand(4) + 2).join(' '), text: Faker::Lorem.paragraphs.join("\n\n"))
 end

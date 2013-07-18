@@ -46,7 +46,25 @@ describe 'Notes pages' do
         expect(page).to have_content note.text
         expect(page).not_to have_content other_note.text
       end
+
+      it 'provide instant search (ajax)', js: true do
+        note = FactoryGirl.create(:note, title: 'Hello', text: 'world!')
+        other_note = FactoryGirl.create(:note, title: 'Not relevant', text: 'Not relevant')
+        visit note_path(other_note)
+        fill_in :search, with: 'Hello'
+
+        expect(page).to have_content note.text
+        expect(page).not_to have_content other_note.text
+        
+        fill_in :search, with: ""
+        page.execute_script('$("#search").trigger("keyup")')
+
+        expect(page).not_to have_content note.text
+        expect(page).to have_content other_note.text             
+      end
     end
+
+
   end
 
   describe 'show page' do

@@ -1,5 +1,13 @@
 @import "bootstrap";
 
+html {
+    overflow-y: scroll;
+}
+
 body {
 	margin-top: 50px;
+}
+
+.container.ajax-content {
+  display: none;
 }
