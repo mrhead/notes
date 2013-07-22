@@ -5,16 +5,26 @@ $(document).bind 'page:load', ->
 jQuery ->
   init()
 
+currentXHR = null
+
 init = ->
   # instant search
+  
   $('#search').keyup (e) ->
     if $(this).val().length > 0
       $('.main-content').hide()
       $('.ajax-content').show()
+      # disable previous ajax request
+      if currentXHR != null
+        currentXHR.abort()
       $(this).parents('form').submit()
     else
       $('.main-content').show()
       $('.ajax-content').html('').hide()
+
+  # save ajax request so it can be disabled later
+  $('#search').parents('form').bind 'ajax:beforeSend', (e, jqXHR) ->
+    currentXHR = jqXHR
 
 
   # I've found this code somewhere on stack overflow and then rewritten it to coffee script
