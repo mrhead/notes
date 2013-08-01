@@ -23,7 +23,7 @@ Create heroku app:
 
 Set your login and password:
 
-    $ heroku config:set login:your_login
+    $ heroku config:set login=your_login
     $ heroku config:set password=your_password
 
 And open it in the browser:
