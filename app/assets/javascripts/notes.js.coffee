@@ -27,8 +27,8 @@ init = ->
     currentXHR = jqXHR
 
 
-  # I've found this code somewhere on stack overflow and then rewritten it to coffee script
-  # unfortunately I do not have question URL anymore
+  # I've found following code for 'tab in textarea' somewhere on stack overflow and then 
+  # rewritten it to coffee script. Unfortunately I do not have question URL anymore.
   
   # allow tab key in textarea
   $("textarea").keydown (e) ->
