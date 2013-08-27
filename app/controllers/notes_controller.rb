@@ -1,10 +1,8 @@
 class NotesController < ApplicationController
   def index
-    @notes = Note.search(params[:search])
+    @notes = Search.new(params[:search]).notes
     @notes.each do |note|
-      if note.text.lines.count > 15
-        note.text = note.text.lines.first(15).join + '...'
-      end
+      note.truncate_lines
     end
     respond_to do |format|
       format.html
