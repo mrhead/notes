@@ -36,7 +36,7 @@ class NotesController < ApplicationController
 
   def update
     set_note
-  
+
     if @note.update(note_params)
       redirect_to note_path(@note), notice: 'Note has been updated.'
     else

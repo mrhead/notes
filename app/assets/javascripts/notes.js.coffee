@@ -9,7 +9,7 @@ currentXHR = null
 
 init = ->
   # instant search
-  
+
   $('#search').keyup (e) ->
     if $(this).val().length > 0
       $('.main-content').hide()
@@ -29,7 +29,7 @@ init = ->
 
   # I've found following code for 'tab in textarea' somewhere on stack overflow and then 
   # rewritten it to coffee script. Unfortunately I do not have question URL anymore.
-  
+
   # allow tab key in textarea
   $("textarea").keydown (e) ->
     # 9 is for tab key
@@ -43,7 +43,7 @@ init = ->
 
       # set textarea value to: text before caret + tab + text after caret
       $this.val("#{value.substring(0, start)}\t#{value.substring(end)}")
-      
+
       # put caret at right position again (add one for the tab)
       @.selectionStart = @.selectionEnd = start + 1
 

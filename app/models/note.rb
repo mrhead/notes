@@ -13,7 +13,7 @@ class Note < ActiveRecord::Base
   validates :title, presence: true
 
   def self.search(search_string)
-  	unless search_string.blank?
+    unless search_string.blank?
       where_string = []
       args = []
       search_string.split.each do |word|
@@ -22,11 +22,11 @@ class Note < ActiveRecord::Base
         args << "%#{word}%"
         args << "%#{word}%"
       end
-  		found_notes = where args.unshift(where_string.join(' AND '))
+      found_notes = where args.unshift(where_string.join(' AND '))
       found_notes.sort! { |a,b| a.score(search_string) <=> b.score(search_string) }.reverse
-  	else
-  		Note.all
-  	end
+    else
+      Note.all
+    end
   end
 
   def score(search_string)
