@@ -51,11 +51,12 @@ class NotesController < ApplicationController
   end
 
   private
-    def set_note
-      @note = Note.find(params[:id])
-    end
 
-    def note_params
-      params[:note].permit(:title, :text)
-    end
+  def set_note
+    @note = Note.find(params[:id])
+  end
+
+  def note_params
+    params[:note].permit(:title, :text)
+  end
 end

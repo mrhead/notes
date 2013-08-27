@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Notes</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+  <head>
+    <title>Notes</title>
+    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
 
 
-	<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
           <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -32,15 +32,15 @@
       </div>
     </div>
 
-	<div class="container main-content">
-		<% [:notice, :alert].each do |key| %>
-			<% if flash[key] %>
-				<div class="alert alert-<%= key %>"><%= flash[key] %></div>
-			<% end %>
-		<% end %>
-		<%= yield %>
-	</div>
-  <div class="container ajax-content"></div>
+    <div class="container main-content">
+      <% [:notice, :alert].each do |key| %>
+        <% if flash[key] %>
+          <div class="alert alert-<%= key %>"><%= flash[key] %></div>
+        <% end %>
+      <% end %>
+      <%= yield %>
+    </div>
+    <div class="container ajax-content"></div>
 
-</body>
+  </body>
 </html>

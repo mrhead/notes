@@ -1,27 +1,27 @@
 <%= form_for(@note) do |f| %>
-	<% if @note.errors.any? %>
-		<div class="errors">
-			Following errors occured:
-			<ul>
-				<% @note.errors.full_messages.each do |error| %>
-					<li><%= error %></li>
-				<% end %>
-			</ul>
-		</div>
-	<% end %>
+  <% if @note.errors.any? %>
+    <div class="errors">
+      Following errors occured:
+      <ul>
+        <% @note.errors.full_messages.each do |error| %>
+          <li><%= error %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-	<%= f.label :title %>
-	<%= f.text_field :title, class: 'input-block-level' %>
+  <%= f.label :title %>
+  <%= f.text_field :title, class: 'input-block-level' %>
 
-	<%= f.label :text %>
-	<%= f.text_area :text, class: 'input-block-level', rows: 20 %>
+  <%= f.label :text %>
+  <%= f.text_area :text, class: 'input-block-level', rows: 20 %>
 
-	<p>
-		<%= f.submit class: 'btn btn-primary' %>
-		<% if @note.new_record? %>
-			<%= link_to 'Cancel', notes_path, class: 'btn', data: { confirm: 'Really? You will lost your changes.' } %>
-		<% else %>
-			<%= link_to 'Cancel', note_path(@note), class: 'btn', data: { confirm: 'Really? You will lost your changes.' } %>
-		<% end %>
-	</p>
+  <p>
+  <%= f.submit class: 'btn btn-primary' %>
+  <% if @note.new_record? %>
+    <%= link_to 'Cancel', notes_path, class: 'btn', data: { confirm: 'Really? You will lost your changes.' } %>
+  <% else %>
+    <%= link_to 'Cancel', note_path(@note), class: 'btn', data: { confirm: 'Really? You will lost your changes.' } %>
+  <% end %>
+  </p>
 <% end %>
