@@ -7,8 +7,8 @@ class Search
 
   def notes
     unless search_string.blank?
-     found_notes = Note.where query_args 
-     sort_by_score found_notes
+      found_notes = Note.where query_args 
+      sort_by_score found_notes
     else
       Note.all
     end
@@ -35,7 +35,6 @@ class Search
     end
     score
   end
-
 
   def sort_by_score notes
     notes.sort! { |a,b| score(a) <=> score(b) }.reverse

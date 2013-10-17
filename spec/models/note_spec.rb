@@ -22,11 +22,13 @@ describe Note do
 
   it "is invalid without title" do
     note = FactoryGirl.build(:note, title: nil)
+
     expect(note).to be_invalid
   end
 
   it "has valid factory" do
     note = FactoryGirl.build(:note)
+
     expect(note).to be_valid
   end
 end

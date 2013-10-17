@@ -1,4 +1,4 @@
-  require 'spec_helper'
+require 'spec_helper'
 
 describe 'Notes pages' do
   describe 'index page' do
@@ -11,6 +11,7 @@ describe 'Notes pages' do
 
     it 'lists all notes' do
       note = FactoryGirl.create(:note, title: 'Hello', text: 'world!')
+
       visit notes_path
 
       expect(page).to have_link note.title, href: note_path(note)
@@ -20,6 +21,7 @@ describe 'Notes pages' do
     describe 'with long text in notes' do
       it 'shows just first 15 lines of note text' do
         note = FactoryGirl.create(:note, text: "Text\n" * 20)
+
         visit notes_path
 
         expect(page).not_to have_content note.text
@@ -27,17 +29,19 @@ describe 'Notes pages' do
       end
 
       it "doesn't add ... to short notes" do
-        note = FactoryGirl.create(:note, text: "Hello")
+        FactoryGirl.create(:note, text: "Hello")
+
         visit notes_path
 
         expect(page).not_to have_content "Hello..."
       end
     end
-  
+
     describe 'with search string' do
       it 'lists all found notes' do
         note = FactoryGirl.create(:note, title: 'Hello', text: 'world!')
         other_note = FactoryGirl.create(:note, title: 'Not relevant', text: 'Not relevant')
+
         visit notes_path
         fill_in :search, with: 'Hello'
         click_button 'Search'
@@ -50,12 +54,13 @@ describe 'Notes pages' do
       it 'provide instant search (ajax)', js: true do
         note = FactoryGirl.create(:note, title: 'Hello', text: 'world!')
         other_note = FactoryGirl.create(:note, title: 'Not relevant', text: 'Not relevant')
+
         visit note_path(other_note)
         fill_in :search, with: 'Hello'
 
         expect(page).to have_content note.text
         expect(page).not_to have_content other_note.text
-        
+
         fill_in :search, with: ""
         page.execute_script('$("#search").trigger("keyup")')
 
@@ -70,6 +75,7 @@ describe 'Notes pages' do
   describe 'show page' do
     it 'automatically creates html links for URLs' do
       note = FactoryGirl.create(:note, text: 'Lorem http://www.example.com/ ipsum.')
+
       visit note_path(note)
 
       expect(page).to have_link 'http://www.example.com/', href: 'http://www.example.com/'
@@ -77,6 +83,7 @@ describe 'Notes pages' do
 
     it 'has all needed controls' do
       note = FactoryGirl.create(:note)
+
       visit note_path(note)
 
       expect(page).to have_link 'Edit', edit_note_path(note)
@@ -85,6 +92,7 @@ describe 'Notes pages' do
 
     it 'deletes note after click on Delete button' do
       note = FactoryGirl.create(:note)
+
       visit note_path(note)
 
       expect { click_link 'Delete' }.to change(Note, :count).by(-1)
@@ -92,6 +100,7 @@ describe 'Notes pages' do
 
     it 'shows success message after note deletion' do
       note = FactoryGirl.create(:note)
+
       visit note_path(note)
       click_link 'Delete'
 
@@ -100,6 +109,7 @@ describe 'Notes pages' do
 
     it 'escapes html characters' do
       note = FactoryGirl.create(:note, title: '<h1>Test</h1>', text: "<html>test</html>")
+
       visit note_path(note)
 
       expect(page).to have_selector 'h3', text: '<h1>Test</h1>'
@@ -108,18 +118,20 @@ describe 'Notes pages' do
 
     it 'shows note text as preformated text' do
       note = FactoryGirl.create(:note)
+
       visit note_path(note)
 
-    	expect(page).to have_selector 'pre', text: note.text
+      expect(page).to have_selector 'pre', text: note.text
     end
   end
 
   describe 'new note page' do
     it 'has cancel link' do
       visit new_note_path
+
       expect(page).to have_link 'Cancel', notes_path
     end
-    
+
     describe 'creation with invalid information' do
       it 'shows errors' do
         visit new_note_path
@@ -172,6 +184,7 @@ describe 'Notes pages' do
     describe 'note update with invalid information' do
       it 'displays errors' do
         note = FactoryGirl.create(:note)
+
         visit edit_note_path(note)
         fill_in 'Title', with: nil
         click_button 'Update Note'
@@ -183,6 +196,7 @@ describe 'Notes pages' do
     describe 'note update with valid information' do
       it 'updates note' do
         note = FactoryGirl.create(:note, title: 'Hello', text: 'world!')
+
         visit edit_note_path(note)
         fill_in 'Title', with: 'Lorem'
         fill_in 'Text', with: 'ipsum'
@@ -195,6 +209,7 @@ describe 'Notes pages' do
 
       it 'shows success message' do
         note = FactoryGirl.create(:note)
+
         visit edit_note_path(note)
         click_button 'Update Note'
 
@@ -203,6 +218,7 @@ describe 'Notes pages' do
 
       it 'redirects to note page' do
         note = FactoryGirl.create(:note)
+
         visit edit_note_path(note)
         click_button 'Update Note'
 

@@ -3,13 +3,17 @@ require 'spec_helper'
 describe Search, '#search' do
   it 'allows to use more words with arbitrary order in title' do
     note = FactoryGirl.create(:note, title: 'one two three')
+
     search = Search.new('three one')
+
     expect(search.notes).to include(note)
   end
 
   it 'allows to use more words with arbitrary order in text' do
     note = FactoryGirl.create(:note, text: 'one two three')
+
     search = Search.new('three one')
+
     expect(search.notes).to include(note)
   end
 
@@ -39,6 +43,7 @@ describe Search, '#search' do
   it 'returns all notes when search string is empty' do
     note = FactoryGirl.create(:note)
     other_note = FactoryGirl.create(:note)
+
     search = Search.new(nil)
 
     expect(search.notes).to include(note)
@@ -50,6 +55,7 @@ describe Search, '#search' do
     note_one = FactoryGirl.create(:note, title: 'not relevant', text: 'World hello!')
     note_two = FactoryGirl.create(:note, title: 'Hello world', text: 'not relevant')
     note_three = FactoryGirl.create(:note, title: 'Hello', text: 'world')
+
     search = Search.new('Hello world')
 
     expect(search.notes).to eq [note_two, note_three, note_one]
