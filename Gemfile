@@ -14,8 +14,8 @@ group :assets do
 end
 
 group :development, :test do
-  gem 'rspec-rails', '~> 2.13.2'
-  gem 'factory_girl_rails', '~> 4.2.1'
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
   gem 'spork-rails', git: 'http://github.com/railstutorial/spork-rails.git'
 end
 
@@ -25,9 +25,9 @@ group :development do
 end
 
 group :test do
-  gem 'capybara', '~> 2.1.0'
+  gem 'capybara'
   gem 'launchy'
-  gem 'poltergeist'
+  gem 'capybara-webkit'
 end
 
 group :production do

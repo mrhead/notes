@@ -1,5 +1,7 @@
 require 'rubygems'
+require 'capybara-webkit'
 require 'spork'
+#
 #uncomment the following line to use spork with the debugger
 #require 'spork/ext/ruby-debug'
 
@@ -15,12 +17,12 @@ Spork.each_run do
     class ActiveRecord::Base
       mattr_accessor :shared_connection
       @@shared_connection = nil
-     
+
       def self.connection
         @@shared_connection || retrieve_connection
       end
     end
-     
+
     # Forces all threads to share the same connection. This works on
     # Capybara because it starts the web server in a thread.
     ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection
@@ -101,6 +103,5 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
   config.include Capybara::DSL
-  require 'capybara/poltergeist'
-  Capybara.javascript_driver = :poltergeist
+  Capybara.javascript_driver = :webkit
 end
