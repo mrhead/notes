@@ -51,7 +51,7 @@ describe 'Notes pages' do
         expect(page).not_to have_content other_note.text
       end
 
-      it 'provide instant search (ajax)', js: true do
+      it 'provides instant search (ajax)', js: true do
         note = FactoryGirl.create(:note, title: 'Hello', text: 'world!')
         other_note = FactoryGirl.create(:note, title: 'Not relevant', text: 'Not relevant')
 
