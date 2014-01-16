@@ -46,9 +46,7 @@ describe Search, '#search' do
 
     search = Search.new(nil)
 
-    expect(search.notes).to include(note)
-    expect(search.notes).to include(other_note)
-    expect(search.notes.count).to eq(2)
+    expect(search.notes).to eq [note, other_note]
   end
 
   it 'orders results according to search score (word in title has higher score)' do
