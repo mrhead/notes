@@ -1,5 +1,5 @@
 class Search
-  attr_accessor :search_string
+  attr_reader :search_string
 
   def initialize(search_string)
     @search_string  = search_string
