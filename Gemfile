@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.1.0'
 
-gem 'rails', '4.0.0'
+gem 'rails', '4.1.0.beta1'
 gem 'jquery-rails', '~> 2.2.1'
 gem 'bootstrap-sass', '~> 2.3.1.0'
 gem 'rails_autolink'

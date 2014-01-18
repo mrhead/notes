@@ -40,7 +40,7 @@ class Search
   end
 
   def sort_by_score notes
-    notes.sort! { |a,b| note_score(a) <=> note_score(b) }.reverse
+    notes.sort { |a,b| note_score(a) <=> note_score(b) }.reverse
   end
 
   def note_score(note)
