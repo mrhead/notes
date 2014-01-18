@@ -1,9 +1,9 @@
 class NotesController < ApplicationController
   def index
     @notes = Search.new(params[:search]).notes
-    @notes.each do |note|
-      note.truncate_lines
-    end
+
+    @notes.each(&:truncate_lines)
+
     respond_to do |format|
       format.html
       format.js
