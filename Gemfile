@@ -16,12 +16,12 @@ end
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
-  gem 'spork-rails', git: 'http://github.com/railstutorial/spork-rails.git'
 end
 
 group :development do
   gem 'annotate'
   gem 'faker'
+  gem 'spring-commands-rspec'
 end
 
 group :test do
