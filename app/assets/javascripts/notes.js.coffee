@@ -42,10 +42,10 @@ init = ->
       value = $this.val()
 
       # set textarea value to: text before caret + tab + text after caret
-      $this.val("#{value.substring(0, start)}\t#{value.substring(end)}")
+      $this.val("#{value.substring(0, start)}  #{value.substring(end)}")
 
       # put caret at right position again (add one for the tab)
-      @.selectionStart = @.selectionEnd = start + 1
+      @.selectionStart = @.selectionEnd = start + 2
 
       # prevent the focus lose
       e.preventDefault()
