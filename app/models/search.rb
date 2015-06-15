@@ -25,14 +25,14 @@ class Search
     notes = Note.all
 
     search_words.each do |word|
-      notes = notes.where('lower(title) LIKE :word OR lower(text) LIKE :word', word: "%#{word}%")
+      notes = notes.where('title ILIKE :word OR text ILIKE :word', word: "%#{word}%")
     end
 
     notes
   end
 
   def search_words
-    search_string.downcase.split
+    search_string.split
   end
 
   def sort_by_score notes
