@@ -22,21 +22,17 @@ class Search
   end
 
   def found_notes
-    Note.where(where_query)
-  end
+    notes = Note.all
 
-  def where_query
-    where_string = []
-    args = []
-    search_string_words.each do |word|
-      where_string << '(lower(title) LIKE ? OR lower(text) LIKE ?)'
-      args << "%#{word}%" << "%#{word}%"
+    search_words.each do |word|
+      notes = notes.where('title ILIKE :word OR text ILIKE :word', word: "%#{word}%")
     end
-    [where_string.join(' AND ')] + args
+
+    notes
   end
 
-  def search_string_words
-    search_string.downcase.split
+  def search_words
+    search_string.split
   end
 
   def sort_by_score notes
